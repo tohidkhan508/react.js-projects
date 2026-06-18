@@ -1,5 +1,4 @@
 import { deleteDoc, doc } from "firebase/firestore";
-import React from "react";
 import { HiOutlineUserCircle } from "react-icons/hi";
 import { IoMdTrash } from "react-icons/io";
 import { RiEditCircleLine } from "react-icons/ri";

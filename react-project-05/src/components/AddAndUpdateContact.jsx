@@ -1,4 +1,3 @@
-import React from "react";
 import Model from "./Model";
 import { ErrorMessage, Field, Form, Formik } from "formik";
 import { addDoc, collection, doc, updateDoc } from "firebase/firestore";
