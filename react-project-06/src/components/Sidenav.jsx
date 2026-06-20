@@ -45,8 +45,8 @@ const SideNav = () => {
           {navLinks.map((nav) => (
             <Link to={nav.link} key={nav.text}>
               <HStack
-                bg={isActiveLink("/support") ? "#F3F3F7" : "transparent"}
-            color={isActiveLink("/support") ? "#171717" : "#797E82"}
+                bg={isActiveLink() ? "#F3F3F7" : "transparent"}
+                color={isActiveLink() ? "#171717" : "#797E82"}
                 borderRadius="10px"
                 py="3"
                 px="4"
