@@ -1,31 +1,31 @@
-import { useState } from "react";
+import React, { useState } from "react";
 
 const App = () => {
   const [todos, setTodos] = useState([]);
   const [input, setInput] = useState("");
   const [isEdit, setIsEdit] = useState(false);
-  const [editIndex, setEditIndex] = useState(null);
+  const [isEditIndex, setIsEditIndex] = useState(null);
 
-  const handleAdd = (index) => {
+  const handleAdd = () => {
     if (!input.trim()) return;
 
     if (isEdit) {
       const updateTodos = [...todos];
-      updateTodos[editIndex] = input;
+      updateTodos[isEditIndex] = input;
 
       setTodos(updateTodos);
-      setInput("");
+      setIsEditIndex(null);
       setIsEdit(false);
-      setEditIndex(null);
+      setInput("");
     } else {
-      setTodos([input, ...todos]);
+      setTodos([...todos, input]);
     }
     setInput("");
   };
 
   const handleEdit = (index) => {
     setInput(todos[index]);
-    setEditIndex(index);
+    setIsEditIndex(index);
     setIsEdit(true);
   };
 
@@ -34,41 +34,43 @@ const App = () => {
   };
 
   return (
-    <section className="h-screen flex justify-center items-center bg-gray-300">
-      <div className="bg-white p-6 min-w-sm rounded-lg shadow-2xl">
-        <h2 className="text-center text-2xl font-bold">Todo App</h2>
-        <div className="flex justify-between gap-2 mt-4">
-          <input
-            type="text"
-            placeholder="Add a new todo..."
-            value={input}
-            onChange={(e) => setInput(e.target.value)}
-            className="border border-gray-300 px-3 py-2 focus:outline-none w-full focus:ring-2 focus:ring-blue-500 rounded"
-          />
-          <button
-            onClick={handleAdd}
-            className="bg-blue-500 px-3 py-2 rounded-lg text-white font-semibold cursor-pointer hover:bg-blue-700"
-          >
-            {!isEdit ? "Add" : "Update"}
-          </button>
+    <section className="min-h-screen bg-gray-400 flex items-center justify-center p-4">
+      <div className="bg-white rounded-lg w-96 p-3 shadow-2xl max-h-[80vh] overflow-auto hide-scrollbar">
+        <div className="sticky top-0 bg-white z-10 pb-3">
+          <h2 className="text-center font-bold text-2xl">Todo App</h2>
+          <div className="flex justify-between gap-2 mt-4">
+            <input
+              type="text"
+              placeholder="Add a new todo..."
+              value={input}
+              onChange={(e) => setInput(e.target.value)}
+              className="border border-gray-400 w-full px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 rounded text-gray-900 font-semibold"
+            />
+            <button
+              onClick={handleAdd}
+              className="bg-blue-500 px-3 rounded-lg font-semibold text-white cursor-pointer py-2 hover:bg-blue-700"
+            >
+              {isEdit ? "Update" : "Add"}
+            </button>
+          </div>
         </div>
-        <ul className="">
+        <ul className="mt-4 grid gap-3">
           {todos.map((todo, i) => (
             <li
               key={i}
-              className="p-2 px-3 py-3 flex justify-between bg-gray-300 mt-4 rounded-lg"
+              className="bg-gray-300 flex justify-between px-3 py-2 rounded-lg"
             >
-              <span className="font-bold">{todo}</span>
+              <span className="text-center flex justify-center">{todo}</span>
               <div className="flex gap-2">
                 <button
                   onClick={() => handleEdit(i)}
-                  className="bg-green-400 px-3 py-1 rounded-lg font-semibold text-white text-lg cursor-pointer"
+                  className="bg-green-500 px-3 py-1 rounded-lg font-semibold text-white text-md cursor-pointer hover:bg-green-700"
                 >
                   Edit
                 </button>
                 <button
                   onClick={() => handleDelete(i)}
-                  className="bg-red-400 px-3 py-1 rounded-lg font-semibold text-lg text-white cursor-pointer"
+                  className="bg-red-500 px-3 py-1 rounded-lg font-semibold text-white text-md cursor-pointer hover:bg-red-700"
                 >
                   Delete
                 </button>
